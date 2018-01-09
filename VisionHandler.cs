@@ -272,8 +272,7 @@ namespace Episerver.Labs.Cognitive
             try
             {
                 s.Seek(0, SeekOrigin.Begin);
-                //var img = await Client.AnalyzeImageAsync(s, visualFeatures: new VisualFeature[] { VisualFeature.Description, VisualFeature.Tags, VisualFeature.Adult, VisualFeature.Categories, VisualFeature.ImageType, VisualFeature.Color, VisualFeature.Faces });
-                var img = await Client.AnalyzeImageAsync(s, visualFeatures: new VisualFeature[] { VisualFeature.Description, VisualFeature.Tags, VisualFeature.Categories, VisualFeature.ImageType });
+                var img = await Client.AnalyzeImageAsync(s, visualFeatures: new VisualFeature[] { VisualFeature.Description, VisualFeature.Tags, VisualFeature.Adult, VisualFeature.Categories, VisualFeature.ImageType, VisualFeature.Color, VisualFeature.Faces });
                 return img;
             }
             catch (Exception e)
