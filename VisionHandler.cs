@@ -19,6 +19,7 @@ namespace Episerver.Labs.Cognitive
     public class VisionHandler
     {
         public const string APPSETTINGS_VISION_KEY = "Vision:Key";
+        public const string APPSETTINGS_VISION_APIROOT = "Vision:ApiRoot";
 
         protected Injected<IBlobFactory> blobfactory { get; set; }
 
@@ -246,9 +247,11 @@ namespace Episerver.Labs.Cognitive
 
         public VisionHandler()
         {
-            if (ConfigurationManager.AppSettings.AllKeys.Contains(APPSETTINGS_VISION_KEY))
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(APPSETTINGS_VISION_KEY) 
+                && ConfigurationManager.AppSettings.AllKeys.Contains(APPSETTINGS_VISION_APIROOT))
             {
-                Client = new VisionServiceClient(ConfigurationManager.AppSettings[APPSETTINGS_VISION_KEY]);
+                Client = new VisionServiceClient(ConfigurationManager.AppSettings[APPSETTINGS_VISION_KEY],
+                    ConfigurationManager.AppSettings[APPSETTINGS_VISION_APIROOT]);
             }
         }
 
@@ -266,9 +269,17 @@ namespace Episerver.Labs.Cognitive
 
         public async Task<AnalysisResult> AnalyzeImage(Stream s)
         {
-            s.Seek(0, SeekOrigin.Begin);
-            var img = await Client.AnalyzeImageAsync(s, visualFeatures: new VisualFeature[] { VisualFeature.Description, VisualFeature.Tags, VisualFeature.Adult, VisualFeature.Categories, VisualFeature.ImageType, VisualFeature.Color, VisualFeature.Faces });
-            return img;
+            try
+            {
+                s.Seek(0, SeekOrigin.Begin);
+                var img = await Client.AnalyzeImageAsync(s, visualFeatures: new VisualFeature[] { VisualFeature.Description, VisualFeature.Tags, VisualFeature.Adult, VisualFeature.Categories, VisualFeature.ImageType, VisualFeature.Color, VisualFeature.Faces });
+                return img;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<byte[]> MakeSmartThumbnail(Stream s, int x, int y)
