@@ -7,6 +7,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.DataAbstraction;
 using System.Linq;
 using EPiServer.DataAccess;
+using System.Threading;
 
 namespace Episerver.Labs.Cognitive
 {
@@ -60,6 +61,9 @@ namespace Episerver.Labs.Cognitive
                     repo.Service.Save(img, action, EPiServer.Security.AccessLevel.NoAccess); //Save | Publish
                     cnt++;
                     OnStatusChanged($"Handled {cnt} images ");
+                    if (_stopSignaled) return "Job stopped - " + cnt.ToString() + " images tagged.";
+                    //At the most 20 calls per minute, let's sleep for 10 sec just to be sure. TODO: Make optional.
+                    Thread.Sleep(10000);
                 }
                 
                 

@@ -2,16 +2,17 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Episerver.Labs.Cognitive</id>
-    <version>0.10.0</version>
-    <title>Episerver Cognitive Services Technology Preview (EXPERIMENTAL)</title>
+    <version>1.0.0</version>
+    <title>Episerver Cognitive Services Integration</title>
     <authors>Episerver</authors>
     <owners>Episerver</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>EXPERIMENTAL! Integrates with Microsoft Azure Cognitive Services in order to vision enhance the DAM capabilities of Episerver CMS.</description>
+    <projectUrl>https://github.com/AThraen/Episerver.Labs.Cognitive</projectUrl>
+    <description>Integrates with Microsoft Azure Cognitive Services in order to vision enhance the DAM capabilities of Episerver CMS. Provided AS-IS, use at own risk.</description>
     <tags>EPiServerModulePackage</tags>
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="[11,12)" />
-      <dependency id="Microsoft.ProjectOxford.Vision" version="1.0"/>
+      <dependency id="Microsoft.ProjectOxford.Vision" version="1.0.393"/>
       <dependency id="EPiServer.Framework" version="[11,12)"/>
     </dependencies>
   </metadata>

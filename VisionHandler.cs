@@ -137,7 +137,10 @@ namespace Episerver.Labs.Cognitive
                         } else if(p.PropertyType == typeof(string[]))
                         {
                             p.SetValue(img, res.Tags.Select(t => t.Name).ToArray());
-                        } //TODO: xhtml, category field.
+                        } else if(p.PropertyType == typeof(IList<string>))
+                        {
+                            p.SetValue(img, res.Tags.Select(t => t.Name).ToList());
+                        }
                         break;
                     case VisionTypes.BlackAndWhite:
                         if (p.PropertyType == typeof(bool))

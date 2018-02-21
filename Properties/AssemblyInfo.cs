@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Episerver")]
 [assembly: AssemblyProduct("Episerver.Labs.Cognitive")]
-[assembly: AssemblyCopyright("Copyright © Episerver  2017")]
+[assembly: AssemblyCopyright("Copyright © Episerver  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

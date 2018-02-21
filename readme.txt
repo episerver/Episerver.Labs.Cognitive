@@ -1,17 +1,18 @@
 ﻿Episerver.Labs.Cognitive - Vision DAM Enhancements
 ===================================================
 
-This EXPERIMENTAL library significantly enhances the Digital Asset Management capabilities in Episerver CMS.
+This library significantly enhances the Digital Asset Management capabilities in Episerver CMS.
 It works by enriching properties you define on your Image model with content retrieved from the Vision API of Microsoft Azure Cognitive Services.
 For instance it can automatically tag images, describe them, identify text and people in the image and product smart thumbnails.
 This can be useful for many things - including having the content indexed by Episerver Find and making the image more easily accessible to the editors.
 
 
 === Getting Started ===
-After installing the Nuget package in your Episerver CMS 10 project, add the following key to your <appSettings> in Web.config:
+After installing the Nuget package in your Episerver CMS 11 project, add the following keys to your <appSettings> in Web.config:
     <add key="Vision:Key" value="ad1f95d8379d4975ac1d90389e8f5c8e" />
+    <add key="Vision:ApiRoot" value="https://westeurope.api.cognitive.microsoft.com/vision/v1.0" />
 
-Replace the Key with a key you retrieve from the azure portal (create a Vision instance and fetch the key - the price starts at free!). 
+Replace the Key with a key you retrieve from the azure portal (create a Vision instance and fetch the key - the price starts at free!), and the ApiRoot with the API Endpoint (also found in the Azure Portal). 
 For small experiments and demos feel free to use this one, however we cannot guarantee that it will be kept active.
 
 
@@ -35,7 +36,13 @@ Here are some examples of how to attach the attributes (feel free to copy and pl
         [BackingType(typeof(PropertyStringList))]
         [Display(Order = 305)]
         [UIHint(Global.SiteUIHints.Strings)]
-        public virtual string[] TagList { get; set; }
+        public virtual string[] TagArray { get; set; }
+
+//Alternatively you can of course also use a property list.
+		[Vision(VisionType = VisionTypes.Tags)]
+        [Display(Order = 305)]
+        [UIHint(Global.SiteUIHints.StringsCollection)]
+        public virtual IList<string> TagList { get; set; }
 
 //Assigns image categories to a string array
         [Vision(VisionType = VisionTypes.Categories)]

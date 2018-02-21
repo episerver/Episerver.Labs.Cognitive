@@ -39,18 +39,14 @@ namespace Episerver.Labs.Cognitive
 
         private void Service_SavingContent(object sender, EPiServer.ContentEventArgs e)
         {
-            if(handler.Enabled && e.Content is ImageData)
+            
+            //Only call when an image is being uploaded
+            if(e.ContentLink.WorkID==0 && handler.Enabled && e.Content is ImageData && ((EPiServer.SaveContentEventArgs)e).Action==EPiServer.DataAccess.SaveAction.Publish)
             {
                 var img = e.Content as ImageData;
                 //Determine if Blob has changed / is new. If not, do nothing. Only act if relevant properties are empty/null
 
                 handler.HandleImage(img);
-
-                //Analyze which calls is being required by content. Vision, OCR or SmartThumbnail.
-                //var props=e.Content.GetType().GetProperties()
-
-                //when editing called 2 times. First to change status to "Checked Out", second to apply changes.
-                //when creating only called once.
 
 
             }
